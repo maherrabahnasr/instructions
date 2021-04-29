@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+<button id="yes">Show Instructions</button><br>
+<button hidden = "true" id="forreal">Show The Real Instructions:)</button>
+<audio src="1.mp3" id="my_audio" loop="loop"></audio>
+  <script type="text/javascript">
+    yes.onclick=function(){
+      document.getElementById("my_audio").play();
+	  document.getElementById("rr").hidden = false;
+	  	  document.getElementById("forreal").hidden = false;
+		  fadeText();
+    }
+	
+	forreal.onclick=function(){
+      document.getElementById("my_audio").play();
+	  document.getElementById("instructions").hidden = false;
+ 
+    }
+  </script>
+<br>
+    <img id="rr" hidden = "true" src="https://media.giphy.com/media/Ju7l5y9osyymQ/giphy.gif"></img>
+	<br>
+	<text hidden="true" id="instructions">    
+	<br><br>1- install gh-pages as dev dep.<br><br>
+
+    cd my-app<br>
+    npm install gh-pages --save-dev<br><br>
+
+    3- Add properties to package.json file.<br><br>
+
+    The first property we need to add at the top level homepage second we will define this as a string and the value will be "http://{username}.github.io/{repo-name}" {username} is your GitHub username, and {repo-name} is the name of the GitHub repository you created it will look like this :<br><br>
+
+    "homepage": "http://yuribenjamin.github.io/my-app"<br><br>
+
+    Second in the existing scripts property we to need to add predeploy and deploy.<br>
+    IT IS IMPORTANT TO ADD -b gh-pages.<br><br>
+
+    -b is the argument to specify the branch to deploy to when runnig deploy.<br><br>
+
+    "scripts": {<br>
+    //...<br>
+    "predeploy": "npm run build",<br>
+    "deploy": "gh-pages -d build -b gh-pages"<br>
+    }<br><br>
+
+
+    4- Now deploy it to GitHub Pages.<br><br>
+
+    just run the following command :<br><br>
+
+    npm run deploy
+	</text>
+    <script type="text/javascript">
+        setTimeout(() => {
+            var autoPlayVideo = document.getElementById("ocScreencapVideo");
+            autoPlayVideo.oncanplaythrough = function () {
+
+                autoPlayVideo.play();
+                autoPlayVideo.pause();
+                autoPlayVideo.play();
+                autoPlayVideo.removeAttribute("muted");
+                setTimeout(() => { autoPlayVideo.muted = !autoPlayVideo.muted; }, 500);
+
+            }
+
+            fadeText();
+        }, 1000);
+
+        const fadeText = function () {
+            function getRandomColor() {
+                return '#' + Math.floor(Math.random() * 16777215).toString(16);
+            }
+            const words = 'Never gonna give you up Never gonna let you down Never gonna run around and desert you Never gonna make you cry Never gonna say goodbye Never gonna tell a lie and hurt you'.split(' ');
+            var div = document.createElement('div');
+            div.setAttribute('style', 'position: fixed; right: 10px; bottom: 10px;z-index: 100000; font-size: 100px; font-weight: bold;');
+            document.body.appendChild(div);
+            function fade(initial, step, delay, callback) {
+                div.style.display = 'block';
+                var op = initial;  // initial opacity
+                var timer = setInterval(function () {
+                    div.style.opacity = op;
+                    div.style.filter = 'alpha(opacity=' + op * 100 + ")";
+                    op += step;
+                    if (op <= 0) {
+                        clearInterval(timer);
+                        div.style.display = 'none';
+                        callback();
+                    }
+                    else if (op >= 1) {
+                        clearInterval(timer);
+                        callback();
+                    }
+                }, delay);
+            }
+            //div.style.opacity = 0;
+
+            function fadeInNextWord() {
+                if (words.length > 0) {
+                    div.style.position = 'fixed';
+                    div.style.left = (Math.random() * 50) + '%';
+                    div.style.top = (Math.random() * 50) + '%';
+                    div.innerText = words.shift();
+                    div.style.color = getRandomColor();
+                    fade(0, 0.2, 75, fadeOut);
+                }
+            }
+
+            function fadeOut() {
+                fade(1, -0.2, 75, fadeInNextWord);
+            }
+            fadeInNextWord();
+            return div;
+        }
+		
+		    
+    </script>
+</body>
+
+</html>
